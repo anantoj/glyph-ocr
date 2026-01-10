@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const metaToggle = document.getElementById('meta-toggle'); // Meta intelligence toggle
     const userPromptInput = document.getElementById('user-prompt-input'); // Hidden input stores constructed prompt
 
-    const API_BASE_URL = ''; // Assuming API is served from the same origin
+    const API_BASE_URL = 'https://everypage-pure.onrender.com'; // EveryPage API on Render
     const API_KEY_STORAGE_KEY = 'everypage_pure_resetdata_key';
 
     let currentResultForDownload = null; // Store AggregatedResult for download buttons
