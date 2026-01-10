@@ -37,12 +37,11 @@ const PromptBuilder = () => {
         <Label htmlFor="prompt-template" className="text-sm font-medium">
           Quick Templates
         </Label>
-        <Select value={selectedTemplate} onValueChange={loadTemplate}>
+        <Select value={selectedTemplate || undefined} onValueChange={loadTemplate}>
           <SelectTrigger id="prompt-template" className="bg-background">
             <SelectValue placeholder="-- Select a template --" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">-- Select --</SelectItem>
             <SelectItem value="transcribe">Transcribe Text</SelectItem>
             <SelectItem value="summarize">Summarize Content</SelectItem>
             <SelectItem value="translate_es">Translate to Spanish</SelectItem>
