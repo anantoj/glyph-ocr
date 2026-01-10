@@ -20,6 +20,7 @@ const ApiKeySection = () => {
           id="api-key-input"
           type="password"
           placeholder="Enter your API key..."
+          defaultValue="demo-api-key-12345"
           className="flex-1 h-11 bg-background"
         />
         <Button
