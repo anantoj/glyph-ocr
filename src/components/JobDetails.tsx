@@ -35,14 +35,14 @@ const PageResultItem = ({ page }: { page: PageResult }) => {
               <>
                 <h5 className="text-xs font-medium text-muted-foreground mb-2">Result (Text):</h5>
                 <pre className="text-xs bg-muted/50 p-3 rounded overflow-x-auto max-h-[200px] whitespace-pre-wrap">
-                  {escapeHtml(page.data)}
+                  {page.data}
                 </pre>
               </>
             ) : typeof page.data === 'object' ? (
               <>
                 <h5 className="text-xs font-medium text-muted-foreground mb-2">Result (JSON):</h5>
                 <pre className="text-xs bg-muted/50 p-3 rounded overflow-x-auto max-h-[200px]">
-                  {escapeHtml(JSON.stringify(page.data, null, 2))}
+                  {JSON.stringify(page.data, null, 2)}
                 </pre>
               </>
             ) : (
