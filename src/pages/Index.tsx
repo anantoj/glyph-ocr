@@ -24,28 +24,6 @@ const Index = () => {
       <Header />
       
       <main className="container mx-auto px-4 lg:px-6 py-6 lg:py-8">
-        {/* Step Indicators */}
-        <div className="flex items-center justify-center gap-2 mb-8">
-          <div className="flex items-center gap-2">
-            <div className="step-indicator active">1</div>
-            <span className="text-sm font-medium text-foreground hidden sm:inline">API Key</span>
-          </div>
-          <div className="w-8 h-px bg-border"></div>
-          <div className="flex items-center gap-2">
-            <div className="step-indicator pending">2</div>
-            <span className="text-sm text-muted-foreground hidden sm:inline">Configure</span>
-          </div>
-          <div className="w-8 h-px bg-border"></div>
-          <div className="flex items-center gap-2">
-            <div className="step-indicator pending">3</div>
-            <span className="text-sm text-muted-foreground hidden sm:inline">Upload</span>
-          </div>
-          <div className="w-8 h-px bg-border"></div>
-          <div className="flex items-center gap-2">
-            <div className="step-indicator pending">4</div>
-            <span className="text-sm text-muted-foreground hidden sm:inline">Results</span>
-          </div>
-        </div>
         
         {/* Two Column Layout */}
         <div className="grid lg:grid-cols-2 gap-6 lg:gap-8">
