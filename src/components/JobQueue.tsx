@@ -10,24 +10,27 @@ const statusConfig: Record<string, { icon: typeof Clock; color: string; bg: stri
   failed: { icon: AlertCircle, color: 'text-destructive', bg: 'bg-destructive/10' },
 };
 
-const JobItem = ({ job, onSelect }: { job: Job; onSelect: () => void }) => {
+const JobItem = ({ job, onSelect, isSelected }: { job: Job; onSelect: () => void; isSelected: boolean }) => {
   const config = statusConfig[job.status] || statusConfig.pending;
   const Icon = config.icon;
   
   return (
     <button
       onClick={onSelect}
-      className="w-full flex items-center gap-3 p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors text-left"
+      title={`Job ID: ${job.job_id}`}
+      className={`w-full flex items-center gap-3 p-3 rounded-lg transition-colors text-left ${
+        isSelected ? 'bg-accent/20 border border-accent/30' : 'bg-muted/30 hover:bg-muted/50'
+      }`}
     >
       <div className={`flex items-center justify-center w-8 h-8 rounded-lg ${config.bg}`}>
         <Icon className={`w-4 h-4 ${config.color} ${config.animate ? 'animate-spin' : ''}`} />
       </div>
       <div className="flex-1 min-w-0">
         <p className="text-sm font-medium truncate">
-          {job.filename || job.job_id}
+          {job.document_name || `${job.job_id.substring(0, 8)}...`}
         </p>
-        <p className="text-xs text-muted-foreground capitalize">
-          {job.status}
+        <p className="text-xs text-muted-foreground">
+          {job.status} ({job.progress?.toFixed(1) || 0}%)
         </p>
       </div>
     </button>
@@ -35,7 +38,7 @@ const JobItem = ({ job, onSelect }: { job: Job; onSelect: () => void }) => {
 };
 
 const JobQueue = () => {
-  const { jobs, isLoadingJobs, fetchJobs, fetchJobDetails } = useApp();
+  const { jobs, isLoadingJobs, fetchJobs, fetchJobDetails, selectedJob } = useApp();
 
   // Fetch jobs on mount and set up polling
   useEffect(() => {
@@ -80,6 +83,7 @@ const JobQueue = () => {
             <JobItem 
               key={job.job_id} 
               job={job} 
+              isSelected={selectedJob?.job_id === job.job_id}
               onSelect={() => fetchJobDetails(job.job_id)} 
             />
           ))
