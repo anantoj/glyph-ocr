@@ -63,6 +63,14 @@ export default {
           DEFAULT: "hsl(var(--processing))",
           foreground: "hsl(var(--processing-foreground))",
         },
+        glyph: {
+          coral: "hsl(var(--glyph-coral))",
+          "coral-light": "hsl(var(--glyph-coral-light))",
+          "coral-dark": "hsl(var(--glyph-coral-dark))",
+          dark: "hsl(var(--glyph-dark))",
+          card: "hsl(var(--glyph-card))",
+          glass: "hsl(var(--glyph-glass))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -80,11 +88,13 @@ export default {
         sm: "calc(var(--radius) - 4px)",
         xl: "calc(var(--radius) + 4px)",
         "2xl": "calc(var(--radius) + 8px)",
+        "3xl": "1.5rem",
       },
       boxShadow: {
         'card': 'var(--shadow-card)',
         'elevated': 'var(--shadow-md)',
         'elevated-lg': 'var(--shadow-lg)',
+        'glow': 'var(--shadow-glow)',
       },
       keyframes: {
         "accordion-down": {
@@ -100,7 +110,7 @@ export default {
           to: { opacity: "1" },
         },
         "slide-up": {
-          from: { opacity: "0", transform: "translateY(10px)" },
+          from: { opacity: "0", transform: "translateY(20px)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },
         "scale-in": {
@@ -111,14 +121,19 @@ export default {
           from: { transform: "rotate(0deg)" },
           to: { transform: "rotate(360deg)" },
         },
+        "glow": {
+          from: { boxShadow: "0 0 20px -10px hsl(8 75% 55% / 0.3)" },
+          to: { boxShadow: "0 0 30px -5px hsl(8 75% 55% / 0.5)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "fade-in": "fade-in 0.3s ease-out forwards",
-        "slide-up": "slide-up 0.4s ease-out forwards",
-        "scale-in": "scale-in 0.2s ease-out forwards",
+        "fade-in": "fade-in 0.4s ease-out forwards",
+        "slide-up": "slide-up 0.5s ease-out forwards",
+        "scale-in": "scale-in 0.3s ease-out forwards",
         "spin-slow": "spin-slow 2s linear infinite",
+        "glow": "glow 2s ease-in-out infinite alternate",
       },
     },
   },

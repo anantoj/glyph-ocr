@@ -21,10 +21,10 @@ const PromptBuilder = () => {
   } = useApp();
 
   return (
-    <div className="card-elevated p-5 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+    <div className="glass-card p-5 animate-fade-in" style={{ animationDelay: '0.1s' }}>
       <div className="flex items-center gap-3 mb-5">
-        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-accent/10">
-          <Sparkles className="w-4 h-4 text-accent" />
+        <div className="icon-container-sm">
+          <Sparkles className="w-4 h-4 text-primary" />
         </div>
         <div>
           <h2 className="section-title">Task Configuration</h2>
@@ -34,14 +34,14 @@ const PromptBuilder = () => {
       
       {/* Template Selection */}
       <div className="space-y-2 mb-5">
-        <Label htmlFor="prompt-template" className="text-sm font-medium">
+        <Label htmlFor="prompt-template" className="text-sm font-medium text-foreground/80">
           Quick Templates
         </Label>
         <Select value={selectedTemplate || undefined} onValueChange={loadTemplate}>
-          <SelectTrigger id="prompt-template" className="bg-background">
+          <SelectTrigger id="prompt-template" className="bg-background/50 border-border/50">
             <SelectValue placeholder="-- Select a template --" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="bg-popover border-border">
             <SelectItem value="transcribe">Transcribe Text</SelectItem>
             <SelectItem value="summarize">Summarize Content</SelectItem>
             <SelectItem value="translate_es">Translate to Spanish</SelectItem>
@@ -55,7 +55,7 @@ const PromptBuilder = () => {
       
       {/* Task Description */}
       <div className="space-y-2 mb-5">
-        <Label htmlFor="task-input" className="text-sm font-medium">
+        <Label htmlFor="task-input" className="text-sm font-medium text-foreground/80">
           Task Description
         </Label>
         <Textarea
@@ -63,25 +63,25 @@ const PromptBuilder = () => {
           value={taskDescription}
           onChange={(e) => setTaskDescription(e.target.value)}
           placeholder="Describe what you want to extract or analyze from each page..."
-          className="min-h-[100px] bg-background resize-none"
+          className="min-h-[100px] bg-background/50 border-border/50 resize-none"
         />
       </div>
       
       {/* Output Format */}
       <div className="space-y-3 mb-5">
-        <Label className="text-sm font-medium">Output Format</Label>
+        <Label className="text-sm font-medium text-foreground/80">Output Format</Label>
         <RadioGroup 
           value={outputFormat} 
           onValueChange={(value) => setOutputFormat(value as 'json' | 'text')}
           className="flex gap-6"
         >
           <div className="flex items-center space-x-2">
-            <RadioGroupItem value="json" id="format-json" />
-            <Label htmlFor="format-json" className="font-normal cursor-pointer">JSON</Label>
+            <RadioGroupItem value="json" id="format-json" className="border-border text-primary" />
+            <Label htmlFor="format-json" className="font-normal cursor-pointer text-foreground/80">JSON</Label>
           </div>
           <div className="flex items-center space-x-2">
-            <RadioGroupItem value="text" id="format-text" />
-            <Label htmlFor="format-text" className="font-normal cursor-pointer">Plain Text</Label>
+            <RadioGroupItem value="text" id="format-text" className="border-border text-primary" />
+            <Label htmlFor="format-text" className="font-normal cursor-pointer text-foreground/80">Plain Text</Label>
           </div>
         </RadioGroup>
       </div>
@@ -89,7 +89,7 @@ const PromptBuilder = () => {
       {/* JSON Structure (only shown when JSON format is selected) */}
       {outputFormat === 'json' && (
         <div className="space-y-2 mb-5">
-          <Label htmlFor="output-structure-input" className="text-sm font-medium">
+          <Label htmlFor="output-structure-input" className="text-sm font-medium text-foreground/80">
             JSON Structure (Optional)
           </Label>
           <Textarea
@@ -97,7 +97,7 @@ const PromptBuilder = () => {
             value={outputStructure}
             onChange={(e) => setOutputStructure(e.target.value)}
             placeholder='{"field1": "/* description */", "field2": ["..."]}'
-            className="min-h-[100px] bg-background font-mono text-sm resize-none"
+            className="min-h-[100px] bg-background/50 border-border/50 font-mono text-sm resize-none"
           />
           <p className="text-xs text-muted-foreground">
             Define the expected JSON structure. Use /* comments */ for semantic guidance.
@@ -106,11 +106,13 @@ const PromptBuilder = () => {
       )}
       
       {/* Meta Intelligence Toggle */}
-      <div className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
+      <div className="flex items-center justify-between p-4 rounded-xl bg-primary/5 border border-primary/20">
         <div className="flex items-center gap-3">
-          <Zap className="w-4 h-4 text-processing" />
+          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/15">
+            <Zap className="w-4 h-4 text-primary" />
+          </div>
           <div>
-            <p className="text-sm font-medium">Meta Intelligence</p>
+            <p className="text-sm font-medium text-foreground">Meta Intelligence</p>
             <p className="text-xs text-muted-foreground">Enhanced AI processing for complex documents</p>
           </div>
         </div>
@@ -118,6 +120,7 @@ const PromptBuilder = () => {
           id="meta-toggle"
           checked={useMetaIntelligence}
           onCheckedChange={setUseMetaIntelligence}
+          className="data-[state=checked]:bg-primary"
         />
       </div>
     </div>
