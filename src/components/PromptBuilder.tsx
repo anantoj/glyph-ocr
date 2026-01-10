@@ -1,8 +1,11 @@
 import { Sparkles } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { useApp } from "@/contexts/AppContext";
 
 const PromptBuilder = () => {
+  const { taskDescription, setTaskDescription, outputStructure, setOutputStructure } = useApp();
+
   return (
     <div className="card-elevated p-5 animate-fade-in" style={{ animationDelay: '0.1s' }}>
       <div className="flex items-center gap-3 mb-5">
@@ -22,20 +25,22 @@ const PromptBuilder = () => {
         </Label>
         <Textarea
           id="task-input"
-          defaultValue="Extract all text content from each page and organize it into structured sections."
+          value={taskDescription}
+          onChange={(e) => setTaskDescription(e.target.value)}
           placeholder="Describe what you want to extract or analyze from each page..."
           className="min-h-[100px] bg-background resize-none"
         />
       </div>
       
       {/* JSON Structure */}
-      <div id="output-structure-group" className="space-y-2">
+      <div className="space-y-2">
         <Label htmlFor="output-structure-input" className="text-sm font-medium">
           JSON Structure (Optional)
         </Label>
         <Textarea
           id="output-structure-input"
-          defaultValue='{"title": "...", "content": "...", "sections": ["..."]}'
+          value={outputStructure}
+          onChange={(e) => setOutputStructure(e.target.value)}
           placeholder='{"field1": "...", "field2": ["..."]}'
           className="min-h-[80px] bg-background font-mono text-sm resize-none"
         />
@@ -43,14 +48,6 @@ const PromptBuilder = () => {
           Define the expected JSON structure for consistent output formatting
         </p>
       </div>
-      
-      {/* Hidden inputs for JS compatibility */}
-      <input type="hidden" id="user-prompt-input" />
-      <input type="hidden" id="format-json" name="output_format" value="json" defaultChecked />
-      <select id="prompt-template-select" className="hidden" defaultValue="custom">
-        <option value="custom">Custom</option>
-      </select>
-      <input type="hidden" id="meta-toggle" />
     </div>
   );
 };

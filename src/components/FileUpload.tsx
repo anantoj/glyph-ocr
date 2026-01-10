@@ -1,8 +1,10 @@
 import { useState, useRef, ChangeEvent, DragEvent, FormEvent } from "react";
 import { Upload, File, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useApp } from "@/contexts/AppContext";
 
 const FileUpload = () => {
+  const { submitDocument } = useApp();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadStatus, setUploadStatus] = useState<{ type: 'success' | 'error' | ''; message: string }>({ type: '', message: '' });
@@ -41,81 +43,22 @@ const FileUpload = () => {
     e.preventDefault();
     if (!selectedFile) return;
 
-    const apiKey = (document.getElementById('api-key-input') as HTMLInputElement)?.value?.trim();
-    if (!apiKey) {
-      setUploadStatus({ type: 'error', message: 'API Key is required. Please enter it above.' });
-      return;
-    }
-
-    // Get task and output structure from the prompt builder
-    const taskInput = (document.getElementById('task-input') as HTMLTextAreaElement)?.value?.trim() || '';
-    const outputStructure = (document.getElementById('output-structure-input') as HTMLTextAreaElement)?.value?.trim() || '';
-
-    // Construct the prompt
-    let prompt = `<document_analysis>\n`;
-    prompt += `  <system>\n    You are an advanced document analysis AI. Analyze the provided page image.\n  </system>\n`;
-    prompt += `  <input>\n    <image_data>Current page image</image_data>\n`;
-    prompt += `    <task>${taskInput}</task>\n`;
-    prompt += `  </input>\n`;
-    prompt += `  <output_format>\n`;
-    prompt += `    <format>JSON</format>\n`;
-    if (outputStructure) {
-      prompt += `    <structure>\n${outputStructure}\n    </structure>\n`;
-    }
-    prompt += `    <constraints>\n`;
-    prompt += `      <constraint>Return ONLY valid JSON, starting with '{' and ending with '}'.</constraint>\n`;
-    prompt += `      <constraint>Do not include any text, explanations, or markdown formatting before or after the JSON object.</constraint>\n`;
-    if (outputStructure) {
-      prompt += `      <constraint>The JSON structure MUST follow the example provided in the structure tag.</constraint>\n`;
-    }
-    prompt += `    </constraints>\n`;
-    prompt += `  </output_format>\n`;
-    prompt += `</document_analysis>`;
-
     setIsUploading(true);
     setUploadStatus({ type: '', message: '' });
 
-    const formData = new FormData();
-    formData.append('file', selectedFile);
-    formData.append('user_prompt', prompt);
-    formData.append('output_format', 'json');
+    const result = await submitDocument(selectedFile);
 
-    try {
-      const response = await fetch('https://everypage-pure.onrender.com/scan', {
-        method: 'POST',
-        headers: {
-          'x-resetdata-key': apiKey,
-          'Accept': 'application/json',
-        },
-        body: formData,
-      });
-
-      if (!response.ok) {
-        let errorDetail = `HTTP error ${response.status}: ${response.statusText}`;
-        try {
-          const errorJson = await response.json();
-          errorDetail = errorJson.detail || JSON.stringify(errorJson);
-        } catch {
-          // Ignore if response is not JSON
-        }
-        throw new Error(errorDetail);
-      }
-
-      const result = await response.json();
-      setUploadStatus({ type: 'success', message: `Document submitted successfully! Job ID: ${result.job_id || 'N/A'}` });
+    if (result.success) {
+      setUploadStatus({ type: 'success', message: `Document submitted! Job ID: ${result.jobId || 'N/A'}` });
       setSelectedFile(null);
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }
-
-      // Trigger a custom event for the job queue to refresh
-      window.dispatchEvent(new CustomEvent('jobSubmitted', { detail: result }));
-    } catch (error) {
-      console.error('Upload error:', error);
-      setUploadStatus({ type: 'error', message: `Upload failed: ${error instanceof Error ? error.message : 'Unknown error'}` });
-    } finally {
-      setIsUploading(false);
+    } else {
+      setUploadStatus({ type: 'error', message: `Upload failed: ${result.error}` });
     }
+
+    setIsUploading(false);
   };
 
   return (
@@ -132,7 +75,7 @@ const FileUpload = () => {
       
       <form onSubmit={handleSubmit}>
         <div 
-          className={`drop-zone mb-4 group ${isDragOver ? 'border-accent bg-accent/10' : ''}`}
+          className={`drop-zone mb-4 group cursor-pointer ${isDragOver ? 'border-accent bg-accent/10' : ''}`}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
