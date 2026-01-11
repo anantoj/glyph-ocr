@@ -60,17 +60,22 @@ const FlowIndicator = () => {
                 </span>
               </div>
               
-              {/* Connector line */}
+              {/* Arrow connector */}
               {index < steps.length - 1 && (
-                <div className="flex-1 mx-2 hidden sm:block">
+                <div className="flex items-center mx-3 hidden sm:flex">
                   <div 
-                    className={`h-0.5 w-full transition-colors duration-300 ${
-                      completionStatus[index] && completionStatus[index + 1]
+                    className={`w-8 h-0.5 transition-colors duration-300 ${
+                      completionStatus[index]
                         ? 'bg-success'
-                        : completionStatus[index]
-                          ? 'bg-gradient-to-r from-success to-border/50'
-                          : 'bg-border/50'
+                        : 'bg-border/50'
                     }`} 
+                  />
+                  <div 
+                    className={`w-0 h-0 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent border-l-[6px] transition-colors duration-300 ${
+                      completionStatus[index]
+                        ? 'border-l-success'
+                        : 'border-l-border/50'
+                    }`}
                   />
                 </div>
               )}
