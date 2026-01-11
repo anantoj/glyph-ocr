@@ -1,4 +1,4 @@
-import { Key, Sparkles, Upload, ListTodo, FileSearch, Check } from "lucide-react";
+import { Key, Sparkles, Upload, ListTodo, FileSearch, Check, ChevronRight } from "lucide-react";
 import { useApp } from "@/contexts/AppContext";
 
 const steps = [
@@ -62,19 +62,12 @@ const FlowIndicator = () => {
               
               {/* Arrow connector */}
               {index < steps.length - 1 && (
-                <div className="flex items-center mx-3 hidden sm:flex">
-                  <div 
-                    className={`w-8 h-0.5 transition-colors duration-300 ${
+                <div className="mx-4 hidden sm:block">
+                  <ChevronRight 
+                    className={`w-5 h-5 transition-colors duration-300 ${
                       completionStatus[index]
-                        ? 'bg-success'
-                        : 'bg-border/50'
-                    }`} 
-                  />
-                  <div 
-                    className={`w-0 h-0 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent border-l-[6px] transition-colors duration-300 ${
-                      completionStatus[index]
-                        ? 'border-l-success'
-                        : 'border-l-border/50'
+                        ? 'text-success'
+                        : 'text-muted-foreground/50'
                     }`}
                   />
                 </div>
