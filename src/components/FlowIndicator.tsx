@@ -1,4 +1,4 @@
-import { Key, Sparkles, Upload, ListTodo, FileSearch, Check, ChevronRight } from "lucide-react";
+import { Key, Sparkles, Upload, ListTodo, FileSearch, Check } from "lucide-react";
 import { useApp } from "@/contexts/AppContext";
 
 const steps = [
@@ -29,14 +29,14 @@ const FlowIndicator = () => {
 
   return (
     <div className="w-full py-4">
-      <div className="flex items-start justify-between max-w-2xl mx-auto px-4">
+      <div className="flex items-center justify-between max-w-2xl mx-auto px-4">
         {steps.map((item, index) => {
           const isComplete = completionStatus[index];
           const Icon = item.icon;
           
           return (
-            <div key={item.step} className="flex items-start">
-              {/* Step circle and label */}
+            <div key={item.step} className="flex items-center">
+              {/* Step circle */}
               <div className="flex flex-col items-center">
                 <div
                   className={`
@@ -60,15 +60,17 @@ const FlowIndicator = () => {
                 </span>
               </div>
               
-              {/* Arrow connector - aligned with circle */}
+              {/* Connector line */}
               {index < steps.length - 1 && (
-                <div className="hidden sm:flex items-center h-10 mx-4">
-                  <ChevronRight 
-                    className={`w-5 h-5 transition-colors duration-300 ${
-                      completionStatus[index]
-                        ? 'text-success'
-                        : 'text-muted-foreground/50'
-                    }`}
+                <div className="flex-1 mx-2 hidden sm:block">
+                  <div 
+                    className={`h-0.5 w-full transition-colors duration-300 ${
+                      completionStatus[index] && completionStatus[index + 1]
+                        ? 'bg-success'
+                        : completionStatus[index]
+                          ? 'bg-gradient-to-r from-success to-border/50'
+                          : 'bg-border/50'
+                    }`} 
                   />
                 </div>
               )}
