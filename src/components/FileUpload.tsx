@@ -2,6 +2,7 @@ import { useState, useRef, ChangeEvent, DragEvent, FormEvent } from "react";
 import { Upload, File, Loader2, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useApp } from "@/contexts/AppContext";
+import StepBadge from "@/components/StepBadge";
 
 const FileUpload = () => {
   const { submitDocument } = useApp();
@@ -63,14 +64,17 @@ const FileUpload = () => {
 
   return (
     <div className="glass-card p-5 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-      <div className="flex items-center gap-3 mb-5">
-        <div className="icon-container-sm">
-          <Upload className="w-4 h-4 text-primary" />
+      <div className="flex items-center justify-between mb-5">
+        <div className="flex items-center gap-3">
+          <div className="icon-container-sm">
+            <Upload className="w-4 h-4 text-primary" />
+          </div>
+          <div>
+            <h2 className="section-title">Upload Document</h2>
+            <p className="section-description">PDF, images, or scanned documents</p>
+          </div>
         </div>
-        <div>
-          <h2 className="section-title">Upload Document</h2>
-          <p className="section-description">PDF, images, or scanned documents</p>
-        </div>
+        <StepBadge step={3} />
       </div>
       
       <form onSubmit={handleSubmit}>

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { ListTodo, RefreshCw, Clock, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useApp, Job } from "@/contexts/AppContext";
+import StepBadge from "@/components/StepBadge";
 
 const statusConfig: Record<string, { icon: typeof Clock; color: string; bg: string; dotClass: string; animate?: boolean }> = {
   pending: { icon: Clock, color: 'text-muted-foreground', bg: 'bg-muted/50', dotClass: '' },
@@ -77,16 +78,19 @@ const JobQueue = () => {
           </div>
         </div>
         
-        <Button
-          variant="ghost"
-          size="sm"
-          className="h-9 px-3 text-muted-foreground hover:text-foreground hover:bg-muted/50"
-          onClick={fetchJobs}
-          disabled={isLoadingJobs}
-        >
-          <RefreshCw className={`w-4 h-4 mr-2 ${isLoadingJobs ? 'animate-spin' : ''}`} />
-          Refresh
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="h-9 px-3 text-muted-foreground hover:text-foreground hover:bg-muted/50"
+            onClick={fetchJobs}
+            disabled={isLoadingJobs}
+          >
+            <RefreshCw className={`w-4 h-4 mr-2 ${isLoadingJobs ? 'animate-spin' : ''}`} />
+            Refresh
+          </Button>
+          <StepBadge step={4} />
+        </div>
       </div>
       
       <div className="space-y-2 max-h-[280px] overflow-y-auto custom-scrollbar pr-1">

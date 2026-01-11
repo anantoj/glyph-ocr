@@ -3,6 +3,7 @@ import { Key, Check, Eye, EyeOff } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useApp } from "@/contexts/AppContext";
+import StepBadge from "@/components/StepBadge";
 
 const ApiKeySection = () => {
   const { apiKey, setApiKey } = useApp();
@@ -22,14 +23,17 @@ const ApiKeySection = () => {
 
   return (
     <div className="glass-card p-5 animate-fade-in">
-      <div className="flex items-center gap-3 mb-4">
-        <div className="icon-container-sm">
-          <Key className="w-4 h-4 text-primary" />
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-3">
+          <div className="icon-container-sm">
+            <Key className="w-4 h-4 text-primary" />
+          </div>
+          <div>
+            <h2 className="section-title">API Key</h2>
+            <p className="section-description">Enter your CloudRail API key</p>
+          </div>
         </div>
-        <div>
-          <h2 className="section-title">API Key</h2>
-          <p className="section-description">Enter your CloudRail API key</p>
-        </div>
+        <StepBadge step={1} />
       </div>
       
       <div className="flex gap-2">

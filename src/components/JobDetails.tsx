@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { FileSearch, FileJson, FileSpreadsheet, Loader2, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useApp, PageResult } from "@/contexts/AppContext";
+import StepBadge from "@/components/StepBadge";
 
 const PageResultItem = ({ page }: { page: PageResult }) => {
   const isSuccess = page.status === 'success';
@@ -95,28 +96,31 @@ const JobDetails = () => {
           </div>
         </div>
         
-        {isCompleted && (
-          <div className="flex gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              className="h-9 bg-transparent border-border/50 hover:bg-muted/50 hover:border-border"
-              onClick={downloadJobJson}
-            >
-              <FileJson className="w-4 h-4 mr-2" />
-              JSON
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              className="h-9 bg-transparent border-border/50 hover:bg-muted/50 hover:border-border"
-              onClick={downloadJobCsv}
-            >
-              <FileSpreadsheet className="w-4 h-4 mr-2" />
-              CSV
-            </Button>
-          </div>
-        )}
+        <div className="flex items-center gap-2">
+          {isCompleted && (
+            <>
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-9 bg-transparent border-border/50 hover:bg-muted/50 hover:border-border"
+                onClick={downloadJobJson}
+              >
+                <FileJson className="w-4 h-4 mr-2" />
+                JSON
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-9 bg-transparent border-border/50 hover:bg-muted/50 hover:border-border"
+                onClick={downloadJobCsv}
+              >
+                <FileSpreadsheet className="w-4 h-4 mr-2" />
+                CSV
+              </Button>
+            </>
+          )}
+          <StepBadge step={5} />
+        </div>
       </div>
       
       <div className="min-h-[280px] max-h-[calc(100vh-400px)] overflow-y-auto custom-scrollbar pr-1">
