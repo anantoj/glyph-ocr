@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import FlowIndicator from "@/components/FlowIndicator";
 import ApiKeySection from "@/components/ApiKeySection";
 import PromptBuilder from "@/components/PromptBuilder";
 import FileUpload from "@/components/FileUpload";
@@ -12,7 +13,10 @@ const Index = () => {
       <div className="min-h-screen bg-background">
         <Header />
         
-        <main className="container mx-auto px-4 lg:px-6 py-8 pb-12">
+        {/* Flow Indicator */}
+        <FlowIndicator />
+        
+        <main className="container mx-auto px-4 lg:px-6 py-4 pb-12">
           {/* Demo Card Container - CloudRail style */}
           <div className="corner-brackets p-4 mb-8">
             {/* Two Column Layout */}
