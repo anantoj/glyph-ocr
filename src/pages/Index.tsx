@@ -12,21 +12,7 @@ const Index = () => {
       <div className="min-h-screen bg-background">
         <Header />
         
-        {/* Hero Tagline */}
-        <div className="container mx-auto px-4 lg:px-6 py-8 lg:py-10">
-          <div className="text-center mb-8 lg:mb-10 animate-fade-in">
-            <h1 className="text-3xl lg:text-4xl font-bold text-foreground mb-3 tracking-tight">
-              <span className="glyph-logo inline">Glyph</span>
-              <span className="ml-3">reads what others cannot.</span>
-            </h1>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Transform the most challenging documents — handwritten notes, complex forms, damaged scans — 
-              into structured, actionable data with unprecedented accuracy.
-            </p>
-          </div>
-        </div>
-        
-        <main className="container mx-auto px-4 lg:px-6 pb-12">
+        <main className="container mx-auto px-4 lg:px-6 py-8 pb-12">
           {/* Demo Card Container - CloudRail style */}
           <div className="corner-brackets p-4 mb-8">
             {/* Two Column Layout */}
