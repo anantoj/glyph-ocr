@@ -1,4 +1,5 @@
 import { FileText, Zap } from "lucide-react";
+import HelpDialog from "@/components/HelpDialog";
 
 const Header = () => {
   return (
@@ -16,8 +17,10 @@ const Header = () => {
             </div>
           </div>
           
-          {/* Badge */}
+          {/* Right Section */}
           <div className="flex items-center gap-3">
+            <HelpDialog />
+            
             <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted/50 border border-border/50">
               <div className="status-dot active" />
               <span className="text-xs text-muted-foreground">#1 OCR Engine</span>

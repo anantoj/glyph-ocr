@@ -5,6 +5,7 @@ import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useApp, promptTemplates } from "@/contexts/AppContext";
+import StepBadge from "@/components/StepBadge";
 
 const PromptBuilder = () => {
   const { 
@@ -22,14 +23,17 @@ const PromptBuilder = () => {
 
   return (
     <div className="glass-card p-5 animate-fade-in" style={{ animationDelay: '0.1s' }}>
-      <div className="flex items-center gap-3 mb-5">
-        <div className="icon-container-sm">
-          <Sparkles className="w-4 h-4 text-primary" />
+      <div className="flex items-center justify-between mb-5">
+        <div className="flex items-center gap-3">
+          <div className="icon-container-sm">
+            <Sparkles className="w-4 h-4 text-primary" />
+          </div>
+          <div>
+            <h2 className="section-title">Task Configuration</h2>
+            <p className="section-description">Define what to extract from your document</p>
+          </div>
         </div>
-        <div>
-          <h2 className="section-title">Task Configuration</h2>
-          <p className="section-description">Define what to extract from your document</p>
-        </div>
+        <StepBadge step={2} />
       </div>
       
       {/* Template Selection */}
