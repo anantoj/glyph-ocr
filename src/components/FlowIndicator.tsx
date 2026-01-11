@@ -29,14 +29,14 @@ const FlowIndicator = () => {
 
   return (
     <div className="w-full py-4">
-      <div className="flex items-center justify-between max-w-2xl mx-auto px-4">
+      <div className="flex items-start justify-between max-w-2xl mx-auto px-4">
         {steps.map((item, index) => {
           const isComplete = completionStatus[index];
           const Icon = item.icon;
           
           return (
-            <div key={item.step} className="flex items-center">
-              {/* Step circle */}
+            <div key={item.step} className="flex items-start">
+              {/* Step circle and label */}
               <div className="flex flex-col items-center">
                 <div
                   className={`
@@ -60,9 +60,9 @@ const FlowIndicator = () => {
                 </span>
               </div>
               
-              {/* Arrow connector */}
+              {/* Arrow connector - aligned with circle */}
               {index < steps.length - 1 && (
-                <div className="mx-4 hidden sm:block">
+                <div className="hidden sm:flex items-center h-10 mx-4">
                   <ChevronRight 
                     className={`w-5 h-5 transition-colors duration-300 ${
                       completionStatus[index]
