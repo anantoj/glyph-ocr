@@ -162,27 +162,6 @@ const JobDetails = () => {
               </div>
             </div>
 
-            {/* Confidence Bar for Completed Jobs */}
-            {isCompleted && (
-              <div className="p-4 rounded-xl bg-muted/20 border border-border/30">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs text-muted-foreground">Confidence</span>
-                  <span className="text-sm font-medium text-primary">
-                    {((selectedJob.results?.processing_summary?.successful_pages || 0) / 
-                      (selectedJob.results?.processing_summary?.total_pages || 1) * 100).toFixed(1)}%
-                  </span>
-                </div>
-                <div className="confidence-bar h-1.5">
-                  <div 
-                    className="confidence-bar-fill" 
-                    style={{ 
-                      width: `${(selectedJob.results?.processing_summary?.successful_pages || 0) / 
-                        (selectedJob.results?.processing_summary?.total_pages || 1) * 100}%` 
-                    }}
-                  />
-                </div>
-              </div>
-            )}
 
             {/* Error Display */}
             {isError && selectedJob.errors && (
@@ -217,39 +196,18 @@ const JobDetails = () => {
               </div>
             )}
             
-            {/* Summary */}
+            {/* Page Results */}
             {isCompleted && selectedJob.results && (
-              <>
-                <div className="p-4 rounded-xl bg-muted/20 border border-border/30">
-                  <h4 className="text-xs font-medium text-muted-foreground mb-3 uppercase tracking-wide">Processing Summary</h4>
-                  <div className="grid grid-cols-3 gap-4 text-center">
-                    <div>
-                      <p className="text-2xl font-bold text-foreground">{selectedJob.results.processing_summary?.total_pages || 0}</p>
-                      <p className="text-xs text-muted-foreground">Total Pages</p>
-                    </div>
-                    <div>
-                      <p className="text-2xl font-bold text-success">{selectedJob.results.processing_summary?.successful_pages || 0}</p>
-                      <p className="text-xs text-muted-foreground">Successful</p>
-                    </div>
-                    <div>
-                      <p className="text-2xl font-bold text-destructive">{selectedJob.results.processing_summary?.failed_pages || 0}</p>
-                      <p className="text-xs text-muted-foreground">Failed</p>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Page Results */}
-                <div className="space-y-3">
-                  <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Page Transcriptions</h4>
-                  {selectedJob.results.pages?.length > 0 ? (
-                    selectedJob.results.pages.map((page) => (
-                      <PageResultItem key={page.page_number} page={page} />
-                    ))
-                  ) : (
-                    <p className="text-sm text-muted-foreground">No page results found.</p>
-                  )}
-                </div>
-              </>
+              <div className="space-y-3">
+                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Page Transcriptions</h4>
+                {selectedJob.results.pages?.length > 0 ? (
+                  selectedJob.results.pages.map((page) => (
+                    <PageResultItem key={page.page_number} page={page} />
+                  ))
+                ) : (
+                  <p className="text-sm text-muted-foreground">No page results found.</p>
+                )}
+              </div>
             )}
           </div>
         ) : (
