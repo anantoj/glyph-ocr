@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useCallback, ReactNode } from 'react';
 
-const API_BASE_URL = 'https://everypage-pure.onrender.com';
+const API_BASE_URL = 'http://localhost:8000';
 const API_KEY_STORAGE_KEY = 'everypage_pure_api_key';
 const SESSION_ID_STORAGE_KEY = 'everypage_session_id';
 
